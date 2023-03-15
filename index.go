@@ -2,14 +2,14 @@ package yo
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"go.uber.org/zap"
 	"log"
 	"reflect"
 	"runtime"
 	"strings"
 	"sync"
-	"go.uber.org/zap"
-	"errors"
 )
 
 type Group struct {
@@ -49,7 +49,7 @@ func (g *Group) do(f func(ctx context.Context) error) {
 	}
 	var (
 		err error
-		c = make(chan error, 1)
+		c   = make(chan error, 1)
 	)
 	defer func() {
 		if r := recover(); r != nil {
