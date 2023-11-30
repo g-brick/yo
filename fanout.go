@@ -141,7 +141,7 @@ func (c *Fanout) Close() error {
 	return nil
 }
 
-func GetFuncName(i interface{}, seps ...rune) string {
+func GetFuncName(i interface{}, seps ...rune) (funcName string) {
 	fn := runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
 	fields := strings.FieldsFunc(fn, func(sep rune) bool {
 		for _, s := range seps {
@@ -151,8 +151,10 @@ func GetFuncName(i interface{}, seps ...rune) string {
 		}
 		return false
 	})
-	if size := len(fields); size > 0 {
-		return fields[size-1]
+	size := len(fields)
+	if size == 0 {
+		return
 	}
-	return ""
+	funcName = fields[size-1]
+	return
 }
