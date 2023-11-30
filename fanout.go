@@ -108,7 +108,7 @@ func wrapFunc(f func(c context.Context)) (res func(context.Context)) {
 				log.Printf(
 					"[wrapFunc] panic in fanout proc",
 					zap.String("err", fmt.Sprint(r)),
-					zap.String("fn", GetFuncName(f)),
+					zap.String("fn", getFuncName(f)),
 					zap.String("stack", string(buf)),
 				)
 			}
@@ -141,7 +141,7 @@ func (c *Fanout) Close() error {
 	return nil
 }
 
-func GetFuncName(i interface{}, seps ...rune) (funcName string) {
+func getFuncName(i interface{}, seps ...rune) (funcName string) {
 	fn := runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
 	fields := strings.FieldsFunc(fn, func(sep rune) bool {
 		for _, s := range seps {
