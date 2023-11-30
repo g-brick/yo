@@ -14,7 +14,7 @@ import (
 
 var (
 	// ErrFull chan full.
-	ErrFull = errors.New("Task busy, fanout: chan full")
+	ErrFull = errors.New("Task busy, fanout: chan is overflow")
 )
 
 type options struct {
