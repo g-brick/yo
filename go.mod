@@ -1,4 +1,4 @@
-module yo
+module github.com/g-brick/yo
 
 go 1.15
 
