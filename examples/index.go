@@ -10,7 +10,7 @@ import (
 	"github.com/g-brick/yo"
 )
 
-func normalUsage() {
+func _normalUsage() {
 	var (
 		count int32
 		c     = context.Background()
@@ -30,7 +30,7 @@ func normalUsage() {
 }
 
 // Used by timeout control.
-func withCancelControl() {
+func _withCancelControl() {
 	var (
 		url       = "https://bing.com"
 		okReq     int32
@@ -53,8 +53,8 @@ func withCancelControl() {
 	fmt.Printf("5 requests, and %d request(s) succeeded", okReq)
 }
 
-// Use in a normal usage of the errGroup with yo by a limited version.
-func useWithLimitedGoroutines() {
+// Used in a normal usage of the errGroup with yo by a limited version.
+func _WithLimitedGoroutines() {
 	var (
 		count int32
 		c     = context.Background()
