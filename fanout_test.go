@@ -7,24 +7,24 @@ import (
 )
 
 func TestFanoutDo(t *testing.T) {
-	ca := NewFanout("back_proc", Worker(1), Buffer(1024))
-	var run bool
-	ca.Do(context.Background(), func(c context.Context) {
-		run = true
+	bg := NewFanout("background execution", Worker(1), Buffer(1024))
+	var ok bool
+	bg.Do(context.Background(), func(c context.Context) {
+		ok = true
 		panic("error")
 	})
 	time.Sleep(time.Millisecond * 50)
 	t.Log("not panic in main")
-	if !run {
-		t.Fatal("expect run be true")
+	if !ok {
+		t.Fatal("expect ok == true")
 	}
 }
 
 func TestFanoutClose(t *testing.T) {
-	ca := NewFanout("back_proc", Worker(1), Buffer(1024))
-	ca.Close()
-	err := ca.Do(context.Background(), func(c context.Context) {})
+	bg := NewFanout("background execution", Worker(1), Buffer(1024))
+	_ = bg.Close()
+	err := bg.Do(context.Background(), func(c context.Context) {})
 	if err == nil {
-		t.Fatal("expect get err")
+		t.Fatal("expect a err")
 	}
 }
