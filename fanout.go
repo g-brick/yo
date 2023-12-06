@@ -15,7 +15,7 @@ import (
 
 var (
 	// ErrFull chan full.
-	ErrFull = errors.New("Task busy, fanout: chan is overflow")
+	ErrFull = errors.New("task busy, fanout: chan is overflow")
 )
 
 type options struct {
@@ -51,8 +51,8 @@ type item struct {
 	ctx context.Context
 }
 
-// Fanout async consume data from chan.
-type Fanout struct {
+// fanout async consume data from chan.
+type fanout struct {
 	name    string
 	ch      chan item
 	options *options
@@ -62,8 +62,8 @@ type Fanout struct {
 	cancel func()
 }
 
-// New That is new a fanout struct.
-func New(name string, opts ...Option) *Fanout {
+// NewFanout That is new a fanout struct.
+func NewFanout(name string, opts ...Option) *fanout {
 	if name == "" {
 		name = "anonymous"
 	}
@@ -74,7 +74,7 @@ func New(name string, opts ...Option) *Fanout {
 	for _, op := range opts {
 		op(o)
 	}
-	c := &Fanout{
+	c := &fanout{
 		ch:      make(chan item, o.buffer),
 		name:    name,
 		options: o,
@@ -87,7 +87,7 @@ func New(name string, opts ...Option) *Fanout {
 	return c
 }
 
-func (c *Fanout) proc() {
+func (c *fanout) proc() {
 	defer c.waiter.Done()
 	for {
 		select {
@@ -120,7 +120,7 @@ func wrapFunc(f func(c context.Context)) (res func(context.Context)) {
 }
 
 // Do save a callback func.
-func (c *Fanout) Do(ctx context.Context, f func(context.Context)) (err error) {
+func (c *fanout) Do(ctx context.Context, f func(context.Context)) (err error) {
 	if f == nil || c.ctx.Err() != nil {
 		return c.ctx.Err()
 	}
@@ -133,7 +133,7 @@ func (c *Fanout) Do(ctx context.Context, f func(context.Context)) (err error) {
 }
 
 // Close close fanout
-func (c *Fanout) Close() error {
+func (c *fanout) Close() error {
 	if err := c.ctx.Err(); err != nil {
 		return err
 	}
