@@ -73,3 +73,17 @@ func _WithLimitedGoroutines() {
 	}
 	fmt.Printf("The final count is %d", count) // The count must be 100.
 }
+
+// Fanout mode usage.
+func _withFanoutMode() {
+	taskDealer := yo.NewFanout("TaskDealer", yo.Worker(50), yo.Buffer(100))
+	for i := 0; i < 150; i++ {
+		err := taskDealer.Do(context.Background(), func(ctx context.Context) {
+			// Do something heavy task here asynchronously
+			time.Now()
+		})
+		if err != nil {
+			fmt.Printf("Err is %v", err)
+		}
+	}
+}
