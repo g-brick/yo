@@ -4,12 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"go.uber.org/zap"
 	"log"
 	"reflect"
 	"runtime"
 	"strings"
 	"sync"
+
+	"go.uber.org/zap"
 )
 
 var (
@@ -106,7 +107,7 @@ func wrapFunc(f func(c context.Context)) (res func(context.Context)) {
 				buf := make([]byte, 64*1024)
 				buf = buf[:runtime.Stack(buf, false)]
 				log.Printf(
-					"[wrapFunc] panic in fanout proc",
+					"[wrapFunc] panic in fanout proc, %v, %v, %v",
 					zap.String("err", fmt.Sprint(r)),
 					zap.String("fn", getFuncName(f)),
 					zap.String("stack", string(buf)),
