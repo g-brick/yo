@@ -2,14 +2,20 @@ package yo
 
 import (
 	"context"
+	"sync"
 	"testing"
 	"time"
 )
 
 func TestFanoutDo(t *testing.T) {
 	bg := NewFanout("background execution", Worker(1), Buffer(1024))
-	var ok bool
+	var (
+		ok bool
+		l  sync.Mutex
+	)
 	bg.Do(context.Background(), func(c context.Context) {
+		l.Lock()
+		defer l.Unlock()
 		ok = true
 		panic("error")
 	})
