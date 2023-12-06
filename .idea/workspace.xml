@@ -22,12 +22,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86a305f2-7d75-4e34-bfdf-755eb695758c" name="Default Changelist" comment="modify: change the position of the test files.">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/yo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fanout.go" beforeDir="false" afterPath="$PROJECT_DIR$/fanout.go" afterDir="false" />
+    <list default="true" id="86a305f2-7d75-4e34-bfdf-755eb695758c" name="Default Changelist" comment="add: test cases for index file.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/index_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -156,7 +152,8 @@
     <MESSAGE value="modify: change the  error msg of ErrFull." />
     <MESSAGE value="modify: GetFuncName =&gt; getFuncName." />
     <MESSAGE value="modify: change the position of the test files." />
-    <option name="LAST_COMMIT_MESSAGE" value="modify: change the position of the test files." />
+    <MESSAGE value="add: test cases for index file." />
+    <option name="LAST_COMMIT_MESSAGE" value="add: test cases for index file." />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
