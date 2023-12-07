@@ -23,7 +23,7 @@ type options struct {
 	buffer int
 }
 
-// Option Fanout option
+// Option fanout option
 type Option func(*options)
 
 // Worker specifies the worker of Fanout
@@ -62,7 +62,7 @@ type Fanout struct {
 	cancel func()
 }
 
-// NewFanout That is new a Fanout struct.
+// NewFanout That is new a fanout struct.
 func NewFanout(name string, opts ...Option) *Fanout {
 	if name == "" {
 		name = "anonymous"
@@ -132,7 +132,7 @@ func (c *Fanout) Do(ctx context.Context, f func(context.Context)) (err error) {
 	return
 }
 
-// Close close Fanout
+// Close fanout
 func (c *Fanout) Close() error {
 	if err := c.ctx.Err(); err != nil {
 		return err
