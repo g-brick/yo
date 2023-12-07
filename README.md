@@ -111,7 +111,8 @@ func main() {
 	)
 	defer cancel()
 	y := yo.WithCancel(c)
-	for _, url := range urls { // 5 requests concurrent in bing.com would be canceled if some requests were timeout.
+	for _, u := range urls { // 5 requests concurrent in bing.com would be canceled if some requests were timeout.
+		url := u
 		y.Go(func(ctx context.Context) (err error) {
 			if _, err = http.Get(url); err == nil {
 				l.Lock()
