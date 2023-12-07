@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"sync/atomic"
+	"sync"
 	"time"
 
 	"github.com/g-brick/yo"
@@ -13,12 +13,15 @@ import (
 func _normalUsage() {
 	var (
 		count int32
+		l     sync.RWMutex
 		c     = context.Background()
 	)
 	y := yo.WithContext(c)
 	for i := 0; i < 100; i++ {
 		y.Go(func(ctx context.Context) (err error) {
-			atomic.AddInt32(&count, 1)
+			l.Lock()
+			defer l.Unlock()
+			count++
 			return
 		})
 	}
@@ -34,6 +37,7 @@ func _withCancelControl() {
 	var (
 		urls      = []string{"https://bing.com", "https://github.com", "https://google.com", "https://baidu.com", "https://stackoverflow.com"}
 		okReq     int32
+		l         sync.RWMutex
 		deadline  = time.Millisecond * 1200 // 1.2s
 		c, cancel = context.WithTimeout(context.Background(), deadline)
 	)
@@ -42,7 +46,9 @@ func _withCancelControl() {
 	for _, url := range urls { // 5 requests concurrent in bing.com would be canceled if some requests were timeout.
 		y.Go(func(ctx context.Context) (err error) {
 			if _, err = http.Get(url); err == nil {
-				atomic.AddInt32(&okReq, 1)
+				l.Lock()
+				defer l.Unlock()
+				okReq++
 			}
 			return
 		})
@@ -57,13 +63,16 @@ func _withCancelControl() {
 func _WithLimitedGoroutines() {
 	var (
 		count int32
+		l     sync.RWMutex
 		c     = context.Background()
 	)
 	y := yo.WithContext(c)
 	y.GOMAXPROCS(5) // Limit the nums of goroutine here.
 	for i := 0; i < 100; i++ {
 		y.Go(func(ctx context.Context) (err error) {
-			atomic.AddInt32(&count, 1)
+			l.Lock()
+			defer l.Unlock()
+			count++
 			return
 		})
 	}
