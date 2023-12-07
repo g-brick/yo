@@ -11,7 +11,7 @@ func TestFanoutDo(t *testing.T) {
 	bg := NewFanout("background execution", Worker(1), Buffer(1024))
 	var (
 		ok bool
-		l  sync.Mutex
+		l  sync.RWMutex
 	)
 	bg.Do(context.Background(), func(c context.Context) {
 		l.Lock()
