@@ -136,7 +136,7 @@ func main() {
 	for i := 0; i < 150; i++ {
 		err := taskDealer.Do(context.Background(), func(ctx context.Context) {
 			// Do something heavy task here asynchronously
-			time.Now()
+			time.Now() // this is a example.
 		})
 		if err != nil {
 			fmt.Printf("Err is %v", err)
