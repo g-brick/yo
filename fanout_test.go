@@ -13,7 +13,7 @@ func TestFanoutDo(t *testing.T) {
 		ok bool
 		l  sync.RWMutex
 	)
-	bg.Do(context.Background(), func(c context.Context) {
+	_ = bg.Do(context.Background(), func(c context.Context) {
 		l.Lock()
 		defer l.Unlock()
 		ok = true
