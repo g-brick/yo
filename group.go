@@ -7,6 +7,7 @@ import (
 	"sync"
 )
 
+// Group A wrapper for sync.WaitGroup.
 type Group struct {
 	err     error
 	wg      sync.WaitGroup
