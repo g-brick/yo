@@ -57,9 +57,8 @@ type Fanout struct {
 	ch      chan item
 	options *options
 	waiter  sync.WaitGroup
-
-	ctx    context.Context
-	cancel func()
+	ctx     context.Context
+	cancel  func()
 }
 
 // NewFanout That is new a fanout struct.

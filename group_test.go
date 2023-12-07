@@ -31,14 +31,14 @@ func TestNormalUsage(t *testing.T) {
 // We test it by timeout control.
 func TestWithCancel(t *testing.T) {
 	var (
-		url       = "https://bing.com"
+		urls      = []string{"https://bing.com", "https://github.com", "https://google.com", "https://baidu.com", "https://stackoverflow.com"}
 		okReq     int32
 		deadline  = time.Millisecond * 1200 // 1.2s
 		c, cancel = context.WithTimeout(context.Background(), deadline)
 	)
 	defer cancel()
 	y := WithCancel(c)
-	for i := 0; i < 5; i++ { // 5 requests concurrent in bing.com would be canceled if some requests were timeout.
+	for _, url := range urls { // 5 requests concurrent in bing.com would be canceled if some requests were timeout.
 		y.Go(func(ctx context.Context) (err error) {
 			if _, err = http.Get(url); err == nil {
 				atomic.AddInt32(&okReq, 1)
