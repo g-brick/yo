@@ -19,7 +19,7 @@ Otherwise, run the following Go command to install the `yo` package:
 $ go get -u github.com/g-brick/yo
 ```
 ## How to use
-### General usage
+### 1.General usage
 First you need to import Yo package for using Yo, one example :
 ```go
 package main
@@ -48,7 +48,7 @@ func main() {
 	fmt.Printf("The final count is %d", count) // The count must be 100.
 }
 ```
-### Usage with a limited number of goroutines
+### 2.Usage with a limited number of goroutines
 You also can use GOMAXPROCS in yo like this to limit the number of goroutines.
 ```go
 package main
@@ -78,7 +78,7 @@ func main() {
 	fmt.Printf("The final count is %d", count) // The count must be 100.
 }
 ```
-### Usage with a timeout control
+### 3.Usage with a timeout control
 If you want to timeout control multiple tasks without having to wait for them all to succeed, 
 you can use this method to avoid delaying your own application processing time 
 when requesting multiple external third-party applications in parallel.
@@ -117,7 +117,7 @@ func main() {
 	fmt.Printf("5 requests, and %d request(s) succeeded", okReq)
 }
 ```
-### Usage in fan-out mode
+### 4.Usage in fan-out mode
 In fan-out mode, you can run a large number of asynchronous tasks in the background. 
 You can set the number of workers and the length of the task queue. 
 It avoids the frenzied creation and destruction of goroutines.
