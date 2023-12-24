@@ -3,7 +3,7 @@
 [![codecov](https://codecov.io/gh/g-brick/yo/graph/badge.svg?token=8AGHULWWDJ)](https://codecov.io/gh/g-brick/yo)
 [![Go Report Card](https://goreportcard.com/badge/github.com/g-brick/yo)](https://goreportcard.com/report/github.com/g-brick/yo)
 
-**Yo** is a wrapper sync.Group library, which is very simple to use compared to sync.Group, 
+**Yo** is a sync.WaitGroup wrapper library, which is very simple to use compared to sync.Group, 
 and it is very lightweight and has almost no external third-party dependencies. 
 You don't have to worry about when you add or remove the number of goroutines, 
 using it will make your concurrent programming or asynchronous tasks more concise and elegant.
@@ -112,7 +112,7 @@ func main() {
 	defer cancel()
 	y := yo.WithCancel(c)
 	for _, u := range urls { // 5 requests concurrent in bing.com would be canceled if some requests were timeout.
-		url := u
+		url := u // Note here
 		y.Go(func(ctx context.Context) (err error) {
 			if _, err = http.Get(url); err == nil {
 				l.Lock()
